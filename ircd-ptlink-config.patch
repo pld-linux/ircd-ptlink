@@ -1,43 +1,42 @@
-diff -ur PTlink6.15.1-orig/autoconf/configure.in PTlink6.15.1/autoconf/configure.in
---- PTlink6.15.1-orig/autoconf/configure.in	2003-04-08 11:48:00.000000000 -0600
-+++ PTlink6.15.1/autoconf/configure.in	2003-10-10 00:34:54.407238055 -0600
-@@ -295,11 +295,11 @@
- 
-   IRCd version:                        ${VERSION}
-   Default data path:                   ${prefix}
--  Binary path:                         ${prefix}/ircd
-+  Binary path:                         ${sbindir}/ircd
-   Compiler:                            ${CC}
- 
-   Paths set at include/path.h
- "
--echo "#define SPATH \"${prefix}/ircd\"" > include/path.h
--echo "#define DPATH \"${prefix}\"" >> include/path.h
-+echo "#define SPATH \"${sbindir}/ircd\"" > include/path.h
-+echo "#define DPATH \"${sysconfdir}/\"" >> include/path.h
- 
-diff -ur PTlink6.15.1-orig/include/config.h PTlink6.15.1/include/config.h
---- PTlink6.15.1-orig/include/config.h	2003-07-04 11:57:08.000000000 -0600
-+++ PTlink6.15.1/include/config.h	2003-10-10 00:36:07.339286838 -0600
-@@ -105,8 +105,8 @@
- #define KPATH   "kline.conf"
- #define DLPATH  "kline.conf"
- #define MPATH   "ircd.motd"
--#define LPATH   "ircd.log"
--#define PPATH   "ircd.pid"
-+#define LPATH   "/var/log/ircd/ircd.log"
-+#define PPATH   "/var/run/ircd.pid"
- #define OPATH   "opers.motd"
- #define WPATH   "webchat.motd"
- 
-@@ -504,8 +504,8 @@
-  * define IRC_UID to that UID.  This should only be defined if you are running
-  * as root and even then perhaps not.
+diff -ur o-PTlink6.19.3/include/config.h PTlink6.19.3/include/config.h
+--- o-PTlink6.19.3/include/config.h	2004-11-10 08:03:01.000000000 -0700
++++ PTlink6.19.3/include/config.h	2005-02-17 20:43:13.973447828 -0700
+@@ -413,7 +413,7 @@
+  * If you wish to have the server send 'vital' messages about server
+  * to a logfile, define USE_LOGFILE.
   */
--/* #define IRC_UID 1001 */
--/* #define IRC_GID 31 */
-+#define IRC_UID 75
-+#define IRC_GID 75
+-#define USE_LOGFILE
++#undef USE_LOGFILE
  
- /* CLIENT_FLOOD - client excess flood threshold
-  * this controls the number of bytes the server will allow a client to
+ /* USE_SYSLOG - log errors and such to syslog()
+  * If you wish to have the server send 'vital' messages about server
+@@ -423,24 +423,24 @@
+  * this option is used unless you tell the system administrator beforehand
+  * and obtain their permission to send messages to the system log files.
+  */
+-#undef USE_SYSLOG
++#define USE_SYSLOG
+ 
+ #ifdef  USE_SYSLOG
+ /* SYSLOG_KILL SYSLOG_SQUIT SYSLOG_CONNECT SYSLOG_USERS SYSLOG_OPER
+  * If you use syslog above, you may want to turn some (none) of the
+  * spurious log messages for KILL,SQUIT,etc off.
+  */
+ #undef  SYSLOG_KILL     /* log all operator kills to syslog */
+-#undef  SYSLOG_SQUIT    /* log all remote squits for all servers to syslog */
+-#undef  SYSLOG_CONNECT  /* log remote connect messages for other all servs */
++#define  SYSLOG_SQUIT    /* log all remote squits for all servers to syslog */
++#define  SYSLOG_CONNECT  /* log remote connect messages for other all servs */
+ #undef  SYSLOG_USERS    /* send userlog stuff to syslog */
+-#undef  SYSLOG_OPER     /* log all users who successfully become an Op */
++#define  SYSLOG_OPER     /* log all users who successfully become an Op */
+ 
+ /* LOG_FACILITY - facility to use for syslog()
+  * Define the facility you want to use for syslog().  Ask your
+  * sysadmin which one you should use.
+  */
+-#define LOG_FACILITY LOG_LOCAL4
++#define LOG_FACILITY LOG_DAEMON
+ 
+ #endif /* USE_SYSLOG */
+ 
