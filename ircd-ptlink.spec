@@ -3,13 +3,13 @@
 # - rewrite ipv6 support to work with non-v6 systems
 #
 # Conditional build:
-# _without_ipv6		- disable ipv6 support
+%bcond__without	ipv6	# disable ipv6 support
 #
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC
 Name:		ircd-ptlink
 Version:	6.15.1
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/ptlinksoft/PTlink%{version}.tar.gz
@@ -18,6 +18,7 @@ Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-makefile.patch
+Patch2:		%{name}-link.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -53,16 +54,16 @@ wsparcie dla us³ug.
 %setup -q -n PTlink%{version}
 %patch0 -p1
 %patch1 -p1
+mv -f autoconf/{configure.in,acconfig.h} .
+%patch2 -p1
 
 %build
-mv -f autoconf/{configure.in,acconfig.h} .
 cp -f %{_datadir}/automake/config.* autoconf
 %{__aclocal}
 %{__autoconf}
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
-LDFLAGS="%{rpmldflags} -L%{_libdir}"
 %configure \
-	%{!?_without_ipv6:--enable-ipv6}
+	%{?with_ipv6:--enable-ipv6}
 %{__make} \
 	LIBDIR=%{_libdir}
 
