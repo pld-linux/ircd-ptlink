@@ -1,6 +1,6 @@
 diff -ur PTlink6.15.1-orig/autoconf/configure.in PTlink6.15.1/autoconf/configure.in
 --- PTlink6.15.1-orig/autoconf/configure.in	2003-04-08 11:48:00.000000000 -0600
-+++ PTlink6.15.1/autoconf/configure.in	2003-08-16 21:33:06.794771625 -0600
++++ PTlink6.15.1/autoconf/configure.in	2003-10-10 00:34:54.407238055 -0600
 @@ -295,11 +295,11 @@
  
    IRCd version:                        ${VERSION}
@@ -18,30 +18,18 @@ diff -ur PTlink6.15.1-orig/autoconf/configure.in PTlink6.15.1/autoconf/configure
  
 diff -ur PTlink6.15.1-orig/include/config.h PTlink6.15.1/include/config.h
 --- PTlink6.15.1-orig/include/config.h	2003-07-04 11:57:08.000000000 -0600
-+++ PTlink6.15.1/include/config.h	2003-08-16 21:32:27.325741670 -0600
-@@ -101,14 +101,14 @@
-  *
-  */
- 
--#define CPATH   "ircd.conf"
--#define KPATH   "kline.conf"
--#define DLPATH  "kline.conf"
--#define MPATH   "ircd.motd"
++++ PTlink6.15.1/include/config.h	2003-10-10 00:36:07.339286838 -0600
+@@ -105,8 +105,8 @@
+ #define KPATH   "kline.conf"
+ #define DLPATH  "kline.conf"
+ #define MPATH   "ircd.motd"
 -#define LPATH   "ircd.log"
 -#define PPATH   "ircd.pid"
--#define OPATH   "opers.motd"
--#define WPATH   "webchat.motd"
-+#define CPATH   "/etc/ircd/ircd.conf"
-+#define KPATH   "/etc/ircd/kline.conf"
-+#define DLPATH  "/etc/ircd/kline.conf"
-+#define MPATH   "/etc/ircd/ircd.motd"
 +#define LPATH   "/var/log/ircd/ircd.log"
 +#define PPATH   "/var/run/ircd.pid"
-+#define OPATH   "/etc/ircd/opers.motd"
-+#define WPATH   "/etc/ircd/webchat.motd"
+ #define OPATH   "opers.motd"
+ #define WPATH   "webchat.motd"
  
- 
- /*
 @@ -504,8 +504,8 @@
   * define IRC_UID to that UID.  This should only be defined if you are running
   * as root and even then perhaps not.
