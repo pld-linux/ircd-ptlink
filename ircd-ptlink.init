@@ -33,7 +33,7 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/ircd ]; then
 		# Start daemons.
 		msg_starting "IRCd Server"
-		daemon ircd
+		daemon su ircd -c ircd
 		touch /var/lock/subsys/ircd
 	else
 		msg_already_running "IRCd Server"
