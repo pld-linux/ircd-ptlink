@@ -22,20 +22,23 @@ Patch2:		%{name}-link.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	rpmbuild(macros) >= 1.159
 BuildRequires:	zlib-devel
 PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
-Requires(postun):	/usr/sbin/groupdel
 Requires(post,preun):	/sbin/chkconfig
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Provides:	group(ircd)
+Provides:	user(ircd)
+Obsoletes:	bircd
 Obsoletes:	ircd
 Obsoletes:	ircd6
 Obsoletes:	ircd-hybrid
-Obsoletes:	bircd
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
 %define		_localstatedir	/var/lib/ircd
@@ -121,8 +124,8 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel ircd 2> /dev/null
-	/usr/sbin/groupdel ircd 2> /dev/null
+	%userremove ircd
+	%groupremove ircd
 fi
 
 %files
