@@ -60,6 +60,7 @@ cp -f %{_datadir}/automake/config.* autoconf
 %{__aclocal}
 %{__autoconf}
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
+LDFLAGS="%{rpmldflags} -L%{_libdir}"
 %configure \
 	%{!?_without_ipv6:--enable-ipv6}
 %{__make} \
