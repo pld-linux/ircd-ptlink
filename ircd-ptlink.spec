@@ -21,7 +21,7 @@ URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	zlib-devel
-Prereq:		rc-scripts
+PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
 Requires(pre):	/usr/sbin/groupadd
@@ -58,7 +58,7 @@ cp -f %{_datadir}/automake/config.* autoconf
 %{__autoconf}
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
 %configure \
-		%{!?_without_ipv6:--enable-ipv6}
+	%{!?_without_ipv6:--enable-ipv6}
 %{__make}
 
 %install
@@ -124,9 +124,9 @@ fi
 %doc doc/{*.txt,*.conf,server-version-info,Tao-of-IRC.940110} doc_hybrid6/* CHANGES README
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,root,ircd) %dir %{_sysconfdir}
-%attr(660,ircd,ircd) %config(noreplace) %{_sysconfdir}/ircd.conf
+%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ircd.conf
 %attr(754,root,root) /etc/rc.d/init.d/ircd
-%attr(644,root,root) /etc/sysconfig/ircd
+%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/ircd
 %dir %{_libdir}/ircd
 %attr(770,root,ircd) %dir %{_var}/log/ircd
 %attr(770,root,ircd) %dir %{_localstatedir}
