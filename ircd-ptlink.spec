@@ -17,6 +17,7 @@ Source0:	http://dl.sourceforge.net/ptlinksoft/PTlink%{version}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-config.patch
+Patch1:		%{name}-makefile.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -51,6 +52,7 @@ wsparcie dla us³ug.
 %prep
 %setup -q -n PTlink%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 mv -f autoconf/{configure.in,acconfig.h} .
@@ -60,7 +62,8 @@ cp -f %{_datadir}/automake/config.* autoconf
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
 %configure \
 	%{!?_without_ipv6:--enable-ipv6}
-%{__make}
+%{__make} \
+	LIBDIR=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
