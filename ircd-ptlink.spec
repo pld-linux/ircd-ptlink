@@ -3,7 +3,7 @@
 # - rewrite ipv6 support to work with non-v6 systems
 #
 # Conditional build:
-%bcond__without	ipv6	# disable ipv6 support
+%bcond_without	ipv6	# disable ipv6 support
 #
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC
