@@ -38,8 +38,14 @@ Obsoletes:	ircd-hybrid
 %define		_localstatedir	/var/lib/ircd
 
 %description
-PTlink is an advanced IRC server, used by the portuguese PTLink network
-It is fast, reliable, and powerful with good support for services. 
+PTlink is an advanced IRC server, used by the Portuguese PTLink
+network It is fast, reliable, and powerful with good support for
+services.
+
+%description -l pl
+PTlink jest zaawansowanym serwerem IRC-a, u¿ywanym w portugalskiej
+sieci PTLink. Jest on szybki, niezawodny i potê¿ny, posiada dobre
+wsparcie dla us³ug.
 
 %prep
 %setup -q -n PTlink%{version}
@@ -75,20 +81,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 if [ -n "`getgid ircd`" ]; then
-       if [ "`getgid ircd`" != "75" ]; then
-               echo "Error: group ircd doesn't have gid=75. Correct this before installing ircd." 1>&2
-               exit 1
-       fi
+	if [ "`getgid ircd`" != "75" ]; then
+		echo "Error: group ircd doesn't have gid=75. Correct this before installing ircd." 1>&2
+		exit 1
+	fi
 else
-       /usr/sbin/groupadd -f -g 75 ircd 2> /dev/null
+	/usr/sbin/groupadd -f -g 75 ircd 2> /dev/null
 fi
 if [ -n "`id -u ircd 2>/dev/null`" ]; then
-       if [ "`id -u ircd`" != "75" ]; then
-               echo "Error: user ircd doesn't have uid=75. Correct this before installing ircd." 1>&2
-               exit 1
-       fi
+	if [ "`id -u ircd`" != "75" ]; then
+		echo "Error: user ircd doesn't have uid=75. Correct this before installing ircd." 1>&2
+		exit 1
+	fi
 else
-       /usr/sbin/useradd -g ircd -d /etc/ircd -u 75 -c "IRC service account" -s /bin/true ircd 2> /dev/null
+	/usr/sbin/useradd -g ircd -d /etc/ircd -u 75 -c "IRC service account" -s /bin/true ircd 2> /dev/null
 fi
 
 %post
@@ -109,13 +115,13 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-       /usr/sbin/userdel ircd 2> /dev/null
-       /usr/sbin/groupdel ircd 2> /dev/null
+	/usr/sbin/userdel ircd 2> /dev/null
+	/usr/sbin/groupdel ircd 2> /dev/null
 fi
 
 %files
 %defattr(644,root,root,755)
-%doc doc/{*.txt,*.conf,server-version-info,Tao-of-IRC.940110} doc_hybrid6/* CHANGES README 
+%doc doc/{*.txt,*.conf,server-version-info,Tao-of-IRC.940110} doc_hybrid6/* CHANGES README
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,root,ircd) %dir %{_sysconfdir}
 %attr(660,ircd,ircd) %config(noreplace) %{_sysconfdir}/ircd.conf
