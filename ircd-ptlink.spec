@@ -9,7 +9,7 @@ Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC
 Name:		ircd-ptlink
 Version:	6.15.1
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Daemons
 Source0:	http://dl.sourceforge.net/ptlinksoft/PTlink%{version}.tar.gz
