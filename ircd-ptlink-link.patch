@@ -1,0 +1,21 @@
+--- PTlink6.15.1/configure.in.orig	2004-08-03 20:08:52.500823000 +0200
++++ PTlink6.15.1/configure.in	2004-08-03 20:12:07.181139353 +0200
+@@ -25,9 +25,15 @@
+ dnl Checks for libraries.
+ dnl Replace `main' with a function in -lnsl:
+ dnl Replace ain' with a function in -lnsl:
+-AC_CHECK_LIB(nsl, gethostbyname)
+-AC_CHECK_FUNC(res_mkquery,, AC_CHECK_LIB(resolv, res_mkquery))
+-AC_CHECK_LIB(socket, socket)
++AC_SEARCH_LIBS(gethostbyname,nsl)
++AC_CHECK_FUNC(res_mkquery,,[
++  AC_CHECK_FUNC(__res_mkquery,,[
++    AC_CHECK_LIB(resolv, res_mkquery,,[
++      AC_CHECK_LIB(resolv, __res_mkquery)
++    ])
++  ])
++])
++AC_SEARCH_LIBS(socket, socket)
+ AC_CHECK_FUNC(crypt,, AC_CHECK_LIB(descrypt, crypt,,AC_CHECK_LIB(crypt, crypt,,)))
+ AC_CHECK_FUNC(inet_ntoa,, AC_CHECK_LIB(nsl, inet_ntoa,,))
+ AC_CHECK_FUNC(inet_aton,, AC_CHECK_LIB(resolv, inet_aton,,))
