@@ -20,7 +20,7 @@ Patch0:		%{name}-config.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	zlib-devel
 PreReq:		rc-scripts
 Requires(pre):	/usr/bin/getgid
@@ -86,22 +86,8 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/ircd
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -n "`getgid ircd`" ]; then
-	if [ "`getgid ircd`" != "75" ]; then
-		echo "Error: group ircd doesn't have gid=75. Correct this before installing ircd." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -f -g 75 ircd 2> /dev/null
-fi
-if [ -n "`id -u ircd 2>/dev/null`" ]; then
-	if [ "`id -u ircd`" != "75" ]; then
-		echo "Error: user ircd doesn't have uid=75. Correct this before installing ircd." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -g ircd -d /etc/ircd -u 75 -c "IRC service account" -s /bin/true ircd 2> /dev/null
-fi
+%groupadd -f -g 75 ircd
+%useradd -g ircd -d /etc/ircd -u 75 -c "IRC service account" -s /bin/true ircd
 
 %post
 /sbin/chkconfig --add ircd
