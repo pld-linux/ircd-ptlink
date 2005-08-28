@@ -8,12 +8,12 @@
 Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC
 Name:		ircd-ptlink
-Version:	6.19.3
+Version:	6.19.4
 Release:	1
 License:	GPL v2
 Group:		Daemons
 Source0:	ftp://ftp.sunsite.dk/projects/ptlink/ircd/PTlink%{version}.tar.gz
-# Source0-md5:	d46979f76e28757fedc508544dd0b5fa
+# Source0-md5:	e7c1ac8e0f6eb5486378b84d3949cc2b
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-config.patch
@@ -63,7 +63,8 @@ cp -f %{_datadir}/automake/config.* autoconf
 %{__autoconf}
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
 %configure \
-	%{?with_ipv6:--enable-ipv6}
+	%{?with_ipv6:--enable-ipv6} \
+	--enable-utf-8 
 %{__make} \
 	LIBDIR=%{_libdir}
 
@@ -116,7 +117,8 @@ fi
 %doc doc/{*.txt,*.conf,server-version-info,Tao-of-IRC.940110} doc_hybrid6/* CHANGES README
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,root,ircd) %dir %{_sysconfdir}
-%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ircd.conf
+%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
+%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.dconf
 %attr(754,root,root) /etc/rc.d/init.d/ircd
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/ircd
 %dir %{_libdir}/ircd
