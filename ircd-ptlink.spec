@@ -22,14 +22,14 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	zlib-devel
-PreReq:		rc-scripts
-Requires(pre):	/usr/bin/getgid
-Requires(pre):	/bin/id
-Requires(pre):	/usr/sbin/groupadd
-Requires(pre):	/usr/sbin/useradd
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires:	rc-scripts
 Provides:	group(ircd)
 Provides:	user(ircd)
 Obsoletes:	bircd
@@ -64,7 +64,7 @@ cp -f %{_datadir}/automake/config.* autoconf
 CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
 %configure \
 	%{?with_ipv6:--enable-ipv6} \
-	--enable-utf-8 
+	--enable-utf-8
 %{__make} \
 	LIBDIR=%{_libdir}
 
@@ -117,10 +117,10 @@ fi
 %doc doc/{*.txt,*.conf,server-version-info,Tao-of-IRC.940110} doc_hybrid6/* CHANGES README
 %attr(755,root,root) %{_sbindir}/*
 %attr(770,root,ircd) %dir %{_sysconfdir}
-%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.conf
-%attr(660,ircd,ircd) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*.dconf
+%attr(660,ircd,ircd) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
+%attr(660,ircd,ircd) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.dconf
 %attr(754,root,root) /etc/rc.d/init.d/ircd
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/ircd
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/ircd
 %dir %{_libdir}/ircd
 %attr(770,root,ircd) %dir %{_var}/log/ircd
 %attr(770,root,ircd) %dir %{_localstatedir}
