@@ -1,5 +1,5 @@
 # TODO:
-# - add modyfications for use system avalaible shared adns library.
+# - add modifications for use system avalaible shared adns library.
 # - rewrite ipv6 support to work with non-v6 systems
 #
 # Conditional build:
@@ -20,7 +20,7 @@ Patch0:		%{name}-config.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zlib-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
@@ -34,8 +34,8 @@ Provides:	group(ircd)
 Provides:	user(ircd)
 Obsoletes:	bircd
 Obsoletes:	ircd
-Obsoletes:	ircd6
 Obsoletes:	ircd-hybrid
+Obsoletes:	ircd6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
@@ -92,17 +92,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add ircd
-if [ -f /var/lock/subsys/ircd ]; then
-	/etc/rc.d/init.d/ircd restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/ircd start\" to start IRC daemon."
-fi
+%service ircd restart "IRC daemon"
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/ircd ]; then
-		/etc/rc.d/init.d/ircd stop 1>&2
-	fi
+	%service ircd stop
 	/sbin/chkconfig --del ircd
 fi
 
