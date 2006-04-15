@@ -1,12 +1,14 @@
---- PTlink6.15.1/configure.in.orig	2004-08-03 20:08:52.500823000 +0200
-+++ PTlink6.15.1/configure.in	2004-08-03 20:12:07.181139353 +0200
-@@ -25,9 +25,15 @@
+--- PTlink6.19.4/autoconf/configure.in	2005-08-23 19:06:36.000000000 +0300
++++ PTlink6.19.4.link/autoconf/configure.in	2006-04-15 14:59:56.486318551 +0300
+@@ -31,13 +31,15 @@
+ AC_PROG_INSTALL
+ 
  dnl Checks for libraries.
- dnl Replace `main' with a function in -lnsl:
- dnl Replace ain' with a function in -lnsl:
+-dnl Replace `main' with a function in -lnsl:
+-dnl Replace ain' with a function in -lnsl:
 -AC_CHECK_LIB(nsl, gethostbyname)
--AC_CHECK_FUNC(res_mkquery,, AC_CHECK_LIB(resolv, res_mkquery))
--AC_CHECK_LIB(socket, socket)
+-AC_CHECK_FUNC(res_mkquery,, [
+-  AC_CHECK_LIB(resolv, res_mkquery, LIBS="-lresolv")
 +AC_SEARCH_LIBS(gethostbyname,nsl)
 +AC_CHECK_FUNC(res_mkquery,,[
 +  AC_CHECK_FUNC(__res_mkquery,,[
@@ -14,7 +16,8 @@
 +      AC_CHECK_LIB(resolv, __res_mkquery)
 +    ])
 +  ])
-+])
+ ])
+-AC_CHECK_LIB(socket, socket)
 +AC_SEARCH_LIBS(socket, socket)
  AC_CHECK_FUNC(crypt,, AC_CHECK_LIB(descrypt, crypt,,AC_CHECK_LIB(crypt, crypt,,)))
  AC_CHECK_FUNC(inet_ntoa,, AC_CHECK_LIB(nsl, inet_ntoa,,))
