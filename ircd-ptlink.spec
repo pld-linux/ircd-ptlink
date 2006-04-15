@@ -66,8 +66,7 @@ CFLAGS="%{rpmcflags} %{?debug:-DDEBUGMODE}"
 %configure \
 	%{?with_ipv6:--enable-ipv6} \
 	--enable-utf-8
-%{__make} \
-	LIBDIR=%{_libdir}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
