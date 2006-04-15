@@ -9,7 +9,7 @@ Summary:	Internet Relay Chat Server
 Summary(pl):	Serwer IRC
 Name:		ircd-ptlink
 Version:	6.19.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Daemons
 Source0:	ftp://ftp.sunsite.dk/projects/ptlink/ircd/PTlink%{version}.tar.gz
@@ -17,6 +17,7 @@ Source0:	ftp://ftp.sunsite.dk/projects/ptlink/ircd/PTlink%{version}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-config.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.ptlink.net/Coders/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -54,8 +55,8 @@ wsparcie dla us³ug.
 %prep
 %setup -q -n PTlink%{version}
 %patch0 -p1
+%patch1 -p1
 mv -f autoconf/{configure.in,acconfig.h} .
-
 
 %build
 cp -f %{_datadir}/automake/config.* autoconf
