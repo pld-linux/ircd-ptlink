@@ -6,7 +6,7 @@
 %bcond_without	ipv6	# disable ipv6 support
 #
 Summary:	Internet Relay Chat Server
-Summary(pl):	Serwer IRC
+Summary(pl.UTF-8):   Serwer IRC
 Name:		ircd-ptlink
 Version:	6.19.4
 Release:	3
@@ -47,10 +47,10 @@ PTlink is an advanced IRC server, used by the Portuguese PTLink
 network It is fast, reliable, and powerful with good support for
 services.
 
-%description -l pl
-PTlink jest zaawansowanym serwerem IRC-a, u¿ywanym w portugalskiej
-sieci PTLink. Jest on szybki, niezawodny i potê¿ny, posiada dobre
-wsparcie dla us³ug.
+%description -l pl.UTF-8
+PTlink jest zaawansowanym serwerem IRC-a, uÅ¼ywanym w portugalskiej
+sieci PTLink. Jest on szybki, niezawodny i potÄ™Å¼ny, posiada dobre
+wsparcie dla usÅ‚ug.
 
 %prep
 %setup -q -n PTlink%{version}
