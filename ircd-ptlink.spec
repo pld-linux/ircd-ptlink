@@ -6,7 +6,7 @@
 %bcond_without	ipv6	# disable ipv6 support
 #
 Summary:	Internet Relay Chat Server
-Summary(pl.UTF-8):   Serwer IRC
+Summary(pl.UTF-8):	Serwer IRC
 Name:		ircd-ptlink
 Version:	6.19.4
 Release:	3
