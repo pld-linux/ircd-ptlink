@@ -33,7 +33,7 @@ case "$1" in
 	if [ ! -f /var/lock/subsys/ircd ]; then
 		# Start daemons.
 		msg_starting "IRCd Server"
-		daemon su ircd -c ircd
+		daemon --user ircd ircd
 		touch /var/lock/subsys/ircd
 	else
 		msg_already_running "IRCd Server"
@@ -44,19 +44,19 @@ case "$1" in
 	if [ -f /var/lock/subsys/ircd ]; then
 		# Stop daemons.
 		msg_stopping "IRCd Server"
-		killproc ircd
+		killproc --pidfile /var/run/ircd.pid ircd
 		rm -f /var/run/ircd.pid /var/lock/subsys/ircd >/dev/null 2>&1
 	else
 		msg_already_running "IRCd Server"
 	fi
 	;;
   restart|force-reload)
-  	$0 stop
+  $0 stop
 	$0 start
 	exit $?
 	;;
   status)
-  	status ircd
+  status ircd
 	exit $?
 	;;
   *)
