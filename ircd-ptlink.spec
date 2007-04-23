@@ -30,14 +30,14 @@ Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires:	rc-scripts
+Requires:	rc-scripts >= 0.4.0.20
 Provides:	group(ircd)
 Provides:	user(ircd)
 Obsoletes:	bircd
+Obsoletes:	inspircd
 Obsoletes:	ircd
 Obsoletes:	ircd-hybrid
 Obsoletes:	ircd6
-Obsoletes:	inspircd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
