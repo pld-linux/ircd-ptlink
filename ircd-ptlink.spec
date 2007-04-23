@@ -8,12 +8,12 @@
 Summary:	Internet Relay Chat Server
 Summary(pl.UTF-8):	Serwer IRC
 Name:		ircd-ptlink
-Version:	6.19.4
-Release:	3
+Version:	6.19.6
+Release:	1
 License:	GPL v2
 Group:		Daemons
 Source0:	ftp://ftp.sunsite.dk/projects/ptlink/ircd/PTlink%{version}.tar.gz
-# Source0-md5:	e7c1ac8e0f6eb5486378b84d3949cc2b
+# Source0-md5:	d585bd03ec0cce559de466abe1a3dcc3
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-config.patch
@@ -37,6 +37,7 @@ Obsoletes:	bircd
 Obsoletes:	ircd
 Obsoletes:	ircd-hybrid
 Obsoletes:	ircd6
+Obsoletes:	inspircd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/ircd
